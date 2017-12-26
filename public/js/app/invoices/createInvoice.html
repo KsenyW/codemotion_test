@@ -1,0 +1,157 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <h3 class="modal-title">{{"Invoice #"+vm.id}}</h3>
+            <p >
+                <span ng-if="vm.isSaved">Form saved.</span>
+                <span ng-if="!vm.isSaved">Form saving...</span>
+
+            </p>
+
+            <div class="form-group form-group-wrapper">
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                    <label>Create product:</label>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <input type="text"
+                           id="createProductName"
+                           class="form-control"
+                           ng-model="vm.newProduct.name"
+                           placeholder="Name: ">
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                    <input type="number"
+                           id="createProductPrice"
+                           class="form-control"
+                           placeholder="Price: "
+                           ng-model="vm.newProduct.price">
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                    <button class="btn btn-default" type="button" ng-click="vm.createProduct(vm.newProduct)">Create</button>
+                </div>
+            </div>
+            <div class="form-group form-group-wrapper">
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                    <label>Create customer:</label>
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    <input type="text"
+                           id="createCustomerName"
+                           class="form-control"
+                           ng-model="vm.newCustomer.name"
+                           placeholder="Name: ">
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    <input type="text"
+                           id="createCustomerAddress"
+                           class="form-control"
+                           placeholder="Address: "
+                           ng-model="vm.newCustomer.address">
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                    <input type="text"
+                           id="createCustomerPhone"
+                           class="form-control"
+                           placeholder="Phone: "
+                           ng-model="vm.newCustomer.phone">
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                    <button class="btn btn-default" type="button" ng-click="vm.createCustomer(vm.newCustomer)">Create</button>
+                </div>
+            </div>
+
+            <form class="clearfix">
+                <div class="form-group form-group-wrapper">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <label for="products">Products: </label>
+                    </div>
+
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Amount</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="product in vm.listOfProducts">
+                                <td>{{product.name}}</td>
+                                <td>{{product.price}}</td>
+                                <td><input type="number"
+                                           class="form-control fix-200"
+                                           placeholder="Amount: "
+                                           value="{{product.quantity}}"
+                                           ng-model="vm.listOfProducts[$index].quantity"
+                                           ng-blur="vm.countTotal()">
+                                </td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="form-group form-group-wrapper">
+                            <div class="col-sm-2 col-md-2 col-lg-2">
+                                Add product:
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-6">
+                                <select name="products" id="products" class="form-control" ng-model="vm.currentItem">
+                                    <option ng-repeat="item in vm.products" value="{{item}}">
+                                        {{item.name+ ", " + item.price + "$"}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2 col-md-2 col-lg-2">
+                                <input type="number" min="0" class="form-control fix-200" placeholder="Amount: " ng-model="vm.itemAmount">
+                            </div>
+                            <div class="col-sm-2 col-md-2 col-lg-2">
+                                <button class="btn btn-default" type="button" ng-click="vm.formUpdate(vm.currentItem)">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="form-group form-group-wrapper">
+                        <label for="customers">Customers: </label>
+                        <select name="customers"
+                                id="customers"
+                                class="form-control"
+                                ng-model="vm.createInvoiceForm.customer_id"
+                                ng-options="item.id as item.name for item in vm.customers">
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group form-group-wrapper clearfix">
+                    <div class="col-sm-10 col-md-10 col-lg-10">
+                        <label class="control-title" for="discount">Discount, %: </label>
+                    </div>
+                    <div class="col-sm-2 col-md-2 col-lg-2">
+                        <input type="number"
+                               id="discount"
+                               class="form-control"
+                               value="1"
+                               min="0" max="100"
+                               ng-model="vm.createInvoiceForm.discount"
+                               ng-blur="vm.countTotal();">
+                    </div>
+                </div>
+                <div class="form-group form-group-wrapper">
+                    <div class="col-sm-offset-8 col-sm-2 col-md-offset-8 col-md-2 col-lg-offset-8 col-lg-2">
+                        <label class="control-title" for="total">Total:</label>
+                    </div>
+                    <div class="col-sm-2 col-md-2 col-lg-2">
+                        <input type="text"
+                               id="total"
+                               class="form-control"
+                               ng-model="vm.createInvoiceForm.total"
+                               disabled>
+                    </div>
+                </div>
+            </form>
+
+            <button class="btn btn-default" type="button" ng-click="vm.saveInvoice()">Save</button>
+            <a class="btn btn-default" type="button" href="/invoices">Cancel</a>
+        </div>
+    </div>
+</div>

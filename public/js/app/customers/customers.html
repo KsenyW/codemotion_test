@@ -1,0 +1,25 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Phone</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="customer in vm.customers">
+        <th>{{customer.id}}</th>
+        <td>{{customer.name}}</td>
+        <td>{{customer.address}}</td>
+        <td>{{customer.phone}}</td>
+        <td>
+            <a class="btn btn-default" href="{{'/customer/'+customer.id}}">Edit</a>
+            <button class="btn btn-default" ng-click="vm.deleteCustomer(customer.id)">Delete</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<button class="btn btn-default" ng-click="vm.createCustomer()">Create customer</button>

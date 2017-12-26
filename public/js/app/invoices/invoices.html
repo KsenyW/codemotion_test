@@ -1,0 +1,25 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Customer id</th>
+        <th>Discount</th>
+        <th>Total</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="invoice in vm.invoices">
+        <th>{{invoice.id}}</th>
+        <td>{{invoice.customer_id}}</td>
+        <td>{{invoice.discount}}</td>
+        <td>{{invoice.total}}</td>
+        <td>
+            <a class="btn btn-default" href="{{'/invoice/'+invoice.id}}">Edit</a>
+            <button class="btn btn-default" ng-click="vm.deleteInvoice(invoice.id)">Delete</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a class="btn btn-default" href="/invoices/create">Create invoice</a>

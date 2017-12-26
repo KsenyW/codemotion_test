@@ -1,0 +1,14 @@
+.fix-200{
+    width: 100px;
+}
+
+.form-group-wrapper{
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.control-title{
+    text-align: right;
+    display: block;
+    line-height: 2.5;
+}

@@ -1,0 +1,23 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="product in vm.products">
+        <th>{{product.id}}</th>
+        <td>{{product.name}}</td>
+        <td>{{product.price}}</td>
+        <td>
+            <a class="btn btn-default" href="{{'/product/'+product.id}}">Edit</a>
+            <button class="btn btn-default" ng-click="vm.deleteProduct(product.id)">Delete</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<button class="btn btn-default" ng-click="vm.createProduct()">Create product</button>
